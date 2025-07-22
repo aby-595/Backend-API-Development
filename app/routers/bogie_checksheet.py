@@ -8,7 +8,7 @@ from app.dependencies import get_current_user
 router = APIRouter(prefix="/bogie", tags=["Bogie Checksheet"])
 
 
-# ✅ Recursive serializer that handles date inside nested dicts/lists
+
 def serialize_dates(obj):
     if isinstance(obj, dict):
         return {k: serialize_dates(v) for k, v in obj.items()}
@@ -26,7 +26,7 @@ def create_bogie_checksheet(
     db: Session = Depends(database.get_db),
     current_user: str = Depends(get_current_user)
 ):
-    # ✅ Prevent duplicate formNumber
+  
     existing = db.query(models.BogieChecksheet).filter_by(formNumber=form.formNumber).first()
     if existing:
         return {
@@ -78,7 +78,7 @@ def get_all_forms(
 
     forms = query.all()
 
-    # Convert SQLAlchemy model objects to dict and serialize nested dates
+   
     data = []
     for form in forms:
         form_dict = {
