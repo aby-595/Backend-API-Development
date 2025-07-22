@@ -1,109 +1,145 @@
-# Sarva Suvidhaen Backend Assignment – KPA ERP Integration
+# 🚆 Sarva Suvidhaen Backend Assignment – KPA ERP Integration
 
-This repository contains a complete **FastAPI** backend implementation with integration to a **Flutter** frontend for handling:
-- ✅ ICF **Wheel Specification** form submissions
-- ✅ ICF **Bogie Checksheet** form submissions
-- ✅ Secure **JWT-based Authentication**
-- ✅ PostgreSQL database with SQLAlchemy ORM
-- ✅ Optional Docker support
+This project is a complete FastAPI backend implementation for the **ICF Forms API**, built as part of the Sarva Suvidhaen backend evaluation assignment.
 
-## 🔧 Technologies Used
-- FastAPI
-- PostgreSQL
-- SQLAlchemy
-- Pydantic
-- JWT (PyJWT)
-- CORS Middleware
-- Uvicorn
-- Python 3.9+
+## 🎯 Assignment Objective
 
-## 📂 Project Structure
+Develop at least two functional APIs (Wheel Specification and Bogie Checksheet) that:
+- Match the provided **Postman collection**, **SwaggerHub docs**, and **Flutter frontend**
+- Use **PostgreSQL** for data storage
+- Authenticate using a **JWT-based login system**
+- Integrate with the existing Flutter app for submission and retrieval
+
+---
+
+## ⚙️ Technologies Used
+
+- **FastAPI** (Backend framework)
+- **PostgreSQL** (Database)
+- **SQLAlchemy** (ORM)
+- **Pydantic** (Data validation)
+- **JWT (PyJWT)** (Authentication)
+- **Uvicorn** (ASGI Server)
+- **CORS Middleware**
+- **Python 3.9+**
+
+---
+
+## 📁 Project Structure
+
 ```
 app/
-├── main.py                # FastAPI app entry point
-├── models.py              # SQLAlchemy ORM models
+├── main.py                # FastAPI entry point
+├── models.py              # SQLAlchemy models
 ├── schemas.py             # Pydantic schemas
 ├── database.py            # DB connection
+├── dependencies.py        # Auth dependency
 ├── routers/
-│   ├── auth.py            # Login & Registration
-│   ├── wheel_spec.py      # Wheel Spec endpoints
-│   └── bogie_check.py     # Bogie Checksheet endpoints
-.env                       # Environment variables
+│   ├── auth.py            # Login / Register
+│   ├── wheel_spec.py      # Wheel Spec API
+│   └── bogie_check.py     # Bogie Check API
+.env                       # Env variables
 ```
+
+---
 
 ## ✅ Features Implemented
 
-### 1. JWT Authentication
-- Endpoint: `POST /auth/login`
-- Accepts: `mobile`, `password`
-- Returns: JWT token for access
+### 🔐 1. JWT Authentication
 
-### 2. Wheel Specification Form
-- Endpoint: `POST /wheel/`
-- Requires JWT in Authorization header
-- Accepts detailed measurement values
-- Auto-generates unique `formNumber`
-- Stores in PostgreSQL
+- `POST /auth/login`
+- Accepts `mobile` and `password`
+- Returns an `access_token`
+- Required for all protected routes
 
-### 3. Bogie Checksheet Form
-- Endpoint: `POST /bogie/`
+### 🛞 2. ICF Wheel Specification
+
+- `POST /wheel/`
+- `GET /wheel/`
+- Requires valid JWT
+- Accepts detailed nested fields
+- Auto-saves with `formNumber`, `submittedBy`, and `submittedDate`
+- Validated using `Pydantic`
+
+### 🚃 3. ICF Bogie Checksheet
+
+- `POST /bogie/`
+- `GET /bogie/`
 - Requires JWT
-- Accepts `bogieDetails`, `bogieChecksheet`, `bmbcChecksheet`
-- All data stored in structured JSON
+- Accepts complex nested data (bogieDetails, bogieChecksheet, bmbcChecksheet)
+- Stores as structured JSON in PostgreSQL
 
-## 🧪 Testing
-Tested using Postman:
-- ✅ Successful login returns token
-- ✅ `200 OK` on valid Wheel Spec & Bogie submissions
-- ✅ `422` or `401` errors handled gracefully
-- ✅ Duplicate `formNumber` prevented (unique constraint)
+---
 
-## 🌐 Flutter Frontend Integration
-This backend was integrated with a Flutter frontend:
-- Wheel and Bogie forms submit to API
-- Summary screens update upon success
-- Login token is stored using `SharedPreferences`
-- Tested with real-time form submission demo
+## 🧪 Testing with Postman
 
-## 🚀 Running Locally
+- ✅ Login returns valid JWT
+- ✅ Protected POST routes return 200 OK
+- ✅ Form data is saved in PostgreSQL
+- ✅ Duplicate `formNumber` prevented
+- ✅ Error codes returned for bad/missing data
 
-### Step 1: Clone this repo
+---
+
+## 📱 Flutter Frontend Integration
+
+- Connected and tested with Flutter UI
+- API base URL configured in frontend code
+- Forms successfully submitted and summary screens shown
+- Token stored via `SharedPreferences` in app
+
+✅ **Frontend repo**: [https://github.com/s2pl/KPA-ERP-FE/](https://github.com/s2pl/KPA-ERP-FE/)  
+✅ **API Docs**: [SwaggerHub](https://app.swaggerhub.com/apis/sarvasuvidhaen/kpa-form_data/1.0.0)
+
+---
+
+## 🚀 Getting Started (Local Setup)
+
+### 1. Clone the repo
+
 ```bash
-git clone https://github.com/yourusername/kpa-backend.git
-cd kpa-backend
+git clone https://github.com/aby-595/Backend-API-Development
+cd Backend-API-Development
 ```
 
-### Step 2: Setup Environment
+### 2. Setup environment
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
 
-### Step 3: Set environment variables in `.env`
+### 3. Configure `.env` file
+
 ```
-DATABASE_URL=postgresql://<user>:<password>@localhost/<dbname>
-JWT_SECRET_KEY=your-secret
+DATABASE_URL=postgresql://<user>:<password>@localhost/<kpa-db>
+JWT_SECRET_KEY=your-secret-key
 ```
 
-### Step 4: Run Server
+### 4. Run server
+
 ```bash
 uvicorn app.main:app --reload
 ```
 
-## 🐳 Docker (Optional)
-Dockerize with:
-```bash
-docker build -t kpa-backend .
-docker run -p 8000:8000 kpa-backend
-```
+---
 
-## 📅 Submission Date
-> July 22, 2025
+## 📎 Deliverables
+
+- ✅ Backend source code with two integrated APIs
+- ✅ JWT Login system
+- ✅ PostgreSQL DB setup
+- ✅ Connected and tested with the provided Flutter frontend
+- ✅ README with clear setup and documentation
+- ✅ Postman collection with working endpoints
 
 ---
 
-## 👤 Author
-**Aby Daniel Varghese**
+## 📅 Submission
 
-> This project was built as part of the Sarva Suvidhaen backend evaluation.
+**Date:** July 22, 2025  
+**Author:** Aby Daniel Varghese
+
+> This project was built as part of the Sarva Suvidhaen backend evaluation task.
+
