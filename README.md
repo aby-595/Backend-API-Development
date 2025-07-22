@@ -113,7 +113,7 @@ pip install -r requirements.txt
 ### 3. Configure `.env` file
 
 ```
-DATABASE_URL=postgresql://<user>:<password>@localhost/<kpa-db>
+DATABASE_URL=postgresql://<user>:aby123@localhost/<kpa-db>
 JWT_SECRET_KEY=your-secret-key
 ```
 
