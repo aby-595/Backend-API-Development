@@ -13,7 +13,7 @@ def create_wheel_spec(
     db: Session = Depends(database.get_db),
     current_user: str = Depends(get_current_user)
 ):
-    # 🔍 DEBUG: Print incoming request data
+    
     print("Received Wheel Spec Data:", wheel.model_dump())
 
     new_spec = models.WheelSpecification(
