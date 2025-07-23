@@ -88,7 +88,12 @@ app/
 - Forms successfully submitted and summary screens shown
 - Token stored via `SharedPreferences` in app
 
-✅ **Frontend repo**: [https://github.com/s2pl/KPA-ERP-FE/](https://github.com/s2pl/KPA-ERP-FE/)  
+✅ Original Frontend Repo:  
+🔗 https://github.com/s2pl/KPA-ERP-FE
+
+✅ My Modified Frontend (with working login):  
+🔗 https://github.com/aby-595/KPA-ERP-FE
+
 ✅ **API Docs**: [SwaggerHub](https://app.swaggerhub.com/apis/sarvasuvidhaen/kpa-form_data/1.0.0)
 
 ---
